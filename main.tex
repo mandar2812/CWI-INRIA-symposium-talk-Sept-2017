@@ -44,6 +44,7 @@
 %\usetheme{Singapore}
 %\usetheme{Szeged}
 %\usetheme{Warsaw}
+\graphicspath{{figures/}}
 \definecolor{cwired}{rgb}{0.803,0.0,0.227}
 \setbeamercolor{structure}{fg=cwired}
 \title{Inverse Problems in Plasma Diffusion}
@@ -109,7 +110,7 @@
 % and table of contents.
 \section{Problem}
 
-\subsection{Plasma Dynamics}
+\subsection{Magnetosphere}
 
 \begin{frame}{First Slide Title}{Optional Subtitle}
   \begin{itemize}
@@ -122,40 +123,52 @@
   \end{itemize}
 \end{frame}
 
-\subsection{Plasma Motions}
+\subsection{Plasma Dynamics:  Adiabatic Theory}
 
 % You can reveal the parts of a slide one at a time
 % with the \pause command:
-\begin{frame}{Second Slide Title}
-  \begin{itemize}
-  \item {
-    First item.
-    \pause % The slide will pause after showing the first item
-  }
-  \item {   
-    Second item.
-  }
-  % You can also specify when the content should appear
-  % by using <n->:
-  \item<3-> {
-    Third item.
-  }
-  \item<4-> {
-    Fourth item.
-  }
-  % or you can use the \uncover command to reveal general
-  % content (not just \items):
-  \item<5-> {
-    Fifth item. \uncover<6->{Extra text in the fifth item.}
-  }
-  \end{itemize}
+\begin{frame}{Plasma Motions}
+
+  Motion of charged particles is decomposed into three components.
+  
+   \begin{figure}[h]
+        \includegraphics[width=0.5\textwidth]{adiabatic_motions}
+        \caption{Adiabatic Motions}
+        \label{fig:Adiabatic}
+      \end{figure}
 \end{frame}
 
-\section{Parameter Estimation}
+\begin{frame}{Adiabatic Invariants}
+  For each component of plasma motion, there is one \emph{adiabatic
+    invariant} associated.
 
-\subsection{Key Quantities}
+  \begin{itemize}
+  \item<1->{
+      Cyclotron Motion: $M$
+    }
+  \item<2->{
+      Bounce Motion: $J$
+    }
+  \item<3->{
+      Drift Motion: $l$
+    }
+  \end{itemize}
 
-\begin{frame}
+\end{frame}
+
+\subsection{Plasma Dynamics: Diffusion Theory}
+
+\begin{frame}{Radial Diffusion}
+  \begin{equation}
+    \frac{\partial{f}}{\partial{t}} = l^2 \left( \frac{\kappa(l,
+        t)}{l^{2}} \frac{\partial{f}}{\partial{l}} \right) - \lambda(l,
+    t) f +  Q(l, t)
+  \end{equation}
+
+  
+\end{frame}
+
+\begin{frame}{Key Quantities}
   \begin{itemize}
   \item {
       $f$: Plasma \emph{phase space density}
@@ -175,6 +188,11 @@
   }
   \end{itemize}
 \end{frame}
+
+\section{Parameter Estimation}
+
+
+
 
 
 
