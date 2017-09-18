@@ -157,7 +157,7 @@
       \frac{m_{0}v^2 sin^{2}\alpha}{2B}$
     }
   \item<2->{
-      Bounce Motion: $J = \int{p_{\parallel}ds}$
+      Bounce Motion: $J = \int{m_0 v_{\parallel}ds}$
     }
   \item<3->{
       Drift Motion: $\Phi = \int{\int{\mathbf{B} d\mathbf{S}}}$
@@ -197,13 +197,15 @@
 
   \begin{itemize}
   \item Assume Dipole magnetic field
-  \item Substituting $l = 2 \pi B_{E} R^{2}_{E}/\Phi$
+  \item Substitute $l = 2 \pi B_{E} R^{2}_{E}/\Phi$, a coordinate
+    which monotonically increases as one goes farther from the Earth.
   \item Approximate pitch-angle diffusion (particle loss) as
     $\lambda(l, t) f$.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Radial Diffusion}
+  The simplified system \cite{Walt1970}, now looks like
   \begin{equation*}
     \frac{\partial{f}}{\partial{t}} = l^2 \frac{\partial}{\partial{l}} \left( \frac{\kappa(l,
         t)}{l^{2}} \frac{\partial{f}}{\partial{l}}
@@ -228,14 +230,26 @@
   \item<3-> {
     $\lambda(l, t)$: Particle loss rate.
   }
-  \item<4-> {
-      $Q(l, t)$: Particle injection rate (Shall be set to zero for
-      in context).
-  }
   \end{itemize}
 \end{frame}
 
 \subsection{Parameter Estimation}
+
+\begin{frame}{Inverse Problem}
+  \begin{block}{Data}
+    Given a set of (noisy) observations
+    \begin{align*}
+      & \mathcal{D} = \{ ((l_1, t_1), y_1), ((l_2, t_2), y_2),
+                    \cdots, ((l_n, t_n), y_n) \} \\
+      & y(l, t) = f(l, t) + \epsilon \\
+      & \epsilon \sim \mathcal{N}(0, \sigma^2)
+    \end{align*}
+  \end{block}
+  
+  \begin{block}{Inference}
+    The electron loss rate $\lambda(l, t)$
+  \end{block}
+\end{frame}
 
 
 \section{Methodology}
