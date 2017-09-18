@@ -171,7 +171,8 @@
 \begin{frame}{Violation of Invariants}
   \begin{itemize}
   \item<1->{Radial Diffusion: Affects only third invariant $\Phi$}
-  \item<2->{Pitch Angle Diffusion: Affects all three}
+  \item<2->{Pitch Angle Diffusion: Affects all three, leads to loss of
+    particles from radiation belt}
   \end{itemize}
 \end{frame}
 
@@ -181,6 +182,7 @@
 \end{frame}
 
 \begin{frame}{Fokker-Plank Equation}
+  Canonical form of plasma diffusion \cite{Schulz1974} 
   \begin{align*}
     \frac{\partial{f}}{\partial{t}} &= \sum^{3}_{p,q = 1}
     \frac{\partial}{\partial{J_{p}}} \left( \kappa_{pq}
@@ -191,11 +193,22 @@
   \end{align*}
 \end{frame}
 
+\begin{frame}{Simplifying Fokker-Plank}
+
+  \begin{itemize}
+  \item Assume Dipole magnetic field
+  \item Substituting $l = 2 \pi B_{E} R^{2}_{E}/\Phi$
+  \item Approximate pitch-angle diffusion (particle loss) as
+    $\lambda(l, t) f$.
+  \end{itemize}
+\end{frame}
+
 \begin{frame}{Radial Diffusion}
   \begin{equation*}
     \frac{\partial{f}}{\partial{t}} = l^2 \frac{\partial}{\partial{l}} \left( \frac{\kappa(l,
-        t)}{l^{2}} \frac{\partial{f}}{\partial{l}} \right) - \lambda(l,
-    t) f +  Q(l, t)
+        t)}{l^{2}} \frac{\partial{f}}{\partial{l}}
+    \right)_{\mathcal{M}, J} - \lambda(l,
+    t) f
   \end{equation*}
 
   
@@ -275,29 +288,11 @@ Here is an example of an example block.
 \subsection<presentation>*{For Further Reading}
 
 \begin{frame}[allowframebreaks]
-  \frametitle<presentation>{For Further Reading}
-    
-  \begin{thebibliography}{10}
-    
-  \beamertemplatebookbibitems
-  % Start with overview books.
-
-  \bibitem{Author1990}
-    A.~Author.
-    \newblock {\em Handbook of Everything}.
-    \newblock Some Press, 1990.
- 
-    
-  \beamertemplatearticlebibitems
-  % Followed by interesting articles. Keep the list short. 
-
-  \bibitem{Someone2000}
-    S.~Someone.
-    \newblock On this and that.
-    \newblock {\em Journal of This and That}, 2(1):50--100,
-    2000.
-  \end{thebibliography}
+  \frametitle<presentation>{References}
+        \bibliographystyle{apalike}
+        \bibliography{references}
 \end{frame}
+
 
 \end{document}
 
