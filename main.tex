@@ -149,17 +149,18 @@
 
 \begin{frame}{Adiabatic Invariants}
   For each component of plasma motion, there is one \emph{adiabatic
-    invariant} associated.
+    invariant} which is assumed to be conserved in plasma motion.
 
   \begin{itemize}
   \item<1->{
-      Cyclotron Motion: $M$
+      Cyclotron Motion: $\mathcal{M} = m_{0} v^{2}_{\perp}/2B =
+      \frac{m_{0}v^2 sin^{2}\alpha}{2B}$
     }
   \item<2->{
-      Bounce Motion: $J$
+      Bounce Motion: $J = \int{p_{\parallel}ds}$
     }
   \item<3->{
-      Drift Motion: $\Phi$
+      Drift Motion: $\Phi = \int{\int{\mathbf{B} d\mathbf{S}}}$
     }
   \end{itemize}
 
@@ -167,12 +168,35 @@
 
 \subsection{Plasma Dynamics: Diffusion Theory}
 
+\begin{frame}{Violation of Invariants}
+  \begin{itemize}
+  \item<1->{Radial Diffusion: Affects only third invariant $\Phi$}
+  \item<2->{Pitch Angle Diffusion: Affects all three}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Phase Space Density}
+  Quantity of interest in plasma diffusion is the so called
+  \emph{phase space density} $f(\mathcal{M}, J, \Phi, t)$.
+\end{frame}
+
+\begin{frame}{Fokker-Plank Equation}
+  \begin{align*}
+    \frac{\partial{f}}{\partial{t}} &= \sum^{3}_{p,q = 1}
+    \frac{\partial}{\partial{J_{p}}} \left( \kappa_{pq}
+    \frac{\partial{f}}{\partial{J_{q}}} \right) \\
+    J_1 &= \mathcal{M} \\
+    J_2 &= J \\
+    J_{3} &= \Phi
+  \end{align*}
+\end{frame}
+
 \begin{frame}{Radial Diffusion}
-  \begin{equation}
-    \frac{\partial{f}}{\partial{t}} = l^2 \left( \frac{\kappa(l,
+  \begin{equation*}
+    \frac{\partial{f}}{\partial{t}} = l^2 \frac{\partial}{\partial{l}} \left( \frac{\kappa(l,
         t)}{l^{2}} \frac{\partial{f}}{\partial{l}} \right) - \lambda(l,
     t) f +  Q(l, t)
-  \end{equation}
+  \end{equation*}
 
   
 \end{frame}
