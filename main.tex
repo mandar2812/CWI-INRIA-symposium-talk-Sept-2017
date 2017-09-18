@@ -11,7 +11,6 @@
 % notice. 
 
 \documentclass{beamer}
-
 % There are many different themes available for Beamer. A comprehensive
 % list with examples is given here:
 % http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
@@ -82,7 +81,7 @@
 % is a graphic format that can be processed by latex or pdflatex,
 % resp., then you can add a logo as follows:
 
-\pgfdeclareimage[height=0.5cm]{university-logo}{cwi-logo}
+\pgfdeclareimage[height=0.5cm]{university-logo}{figures/cwi-logo}
 \logo{\pgfuseimage{university-logo}}
 
 % Delete this, if you do not want the table of contents to pop up at
@@ -197,19 +196,19 @@
 
   \begin{itemize}
   \item Assume Dipole magnetic field
-  \item Substitute $l = 2 \pi B_{E} R^{2}_{E}/\Phi$, a coordinate
+  \item Substitute $\ell = 2 \pi B_{E} R^{2}_{E}/\Phi$, a coordinate
     which monotonically increases as one goes farther from the Earth.
   \item Approximate pitch-angle diffusion (particle loss) as
-    $\lambda(l, t) f$.
+    $\lambda(\ell, t) f$.
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Radial Diffusion}
   The simplified system \cite{Walt1970}, now looks like
   \begin{equation*}
-    \frac{\partial{f}}{\partial{t}} = l^2 \frac{\partial}{\partial{l}} \left( \frac{\kappa(l,
-        t)}{l^{2}} \frac{\partial{f}}{\partial{l}}
-    \right)_{\mathcal{M}, J} - \lambda(l,
+    \frac{\partial{f}}{\partial{t}} = \ell^2 \frac{\partial}{\partial{\ell}} \left( \frac{\kappa(\ell,
+        t)}{\ell^{2}} \frac{\partial{f}}{\partial{\ell}}
+    \right)_{\mathcal{M}, J} - \lambda(\ell,
     t) f
   \end{equation*}
 
@@ -223,12 +222,12 @@
     \pause % The slide will pause after showing the first item
   }
   \item {   
-      $\kappa(l, t)$: Diffusion field.
+      $\kappa(\ell, t)$: Diffusion field.
   }
   % You can also specify when the content should appear
   % by using <n->:
   \item<3-> {
-    $\lambda(l, t)$: Particle loss rate.
+    $\lambda(\ell, t)$: Particle loss rate.
   }
   \end{itemize}
 \end{frame}
@@ -239,15 +238,15 @@
   \begin{block}{Data}
     Given a set of (noisy) observations
     \begin{align*}
-      & \mathcal{D} = \{ ((l_1, t_1), y_1), ((l_2, t_2), y_2),
-                    \cdots, ((l_n, t_n), y_n) \} \\
-      & y(l, t) = f(l, t) + \epsilon \\
+      & \mathcal{D} = \{ ((\ell_1, t_1), y_1), ((\ell_2, t_2), y_2),
+                    \cdots, ((\ell_n, t_n), y_n) \} \\
+      & y(\ell, t) = f(\ell, t) + \epsilon \\
       & \epsilon \sim \mathcal{N}(0, \sigma^2)
     \end{align*}
   \end{block}
   
   \begin{block}{Inference}
-    The electron loss rate $\lambda(l, t)$
+    The electron loss rate $\lambda(\ell, t)$
   \end{block}
 \end{frame}
 
@@ -267,7 +266,7 @@
 \begin{frame}{Broad Strokes}
   \begin{itemize}
   \item<1->{
-      Parameterize $\kappa(l, t), \lambda(l, t)$
+      Parameterize $\kappa(\ell, t), \lambda(\ell, t)$
     }
   \item<2->{Fit a surrogate for the physical model}
   \item<3->{Quantify likelihood of observed data conditioned on
@@ -283,21 +282,22 @@
   Space weather literature outlines a way to parameterize radial
   diffusion unknowns \cite{JGRA:JGRA15067}.
   \begin{equation*}
-    \kappa(l, t), \lambda(l, t) \sim \alpha l^{\beta} 10^{b Kp(t)}
+    \kappa(\ell, t), \lambda(\ell, t) \sim \alpha \ell^{\beta} 10^{b Kp(t)}
   \end{equation*}
 
-  The quantity $Kp(t)$ is a ground based measurement informing the
-  state of the magnetosphere.
+  The parameters of $\kappa$ are set to values already used in
+  literature, we focus on inference of $\lambda$ parameters only.
 \end{frame}
 
 \subsection{Model Surrogate}
 
 \begin{frame}{Radial Basis Functions}
   \begin{block}{Basis Expansion}
-    The approximation to $f(l, t)$ is constructed as a radial basis expansion.
-    \begin{equation*}
-      \hat{f}(x) = \sum_{i}{w_{i} \phi(||x - x_{i}||/\rho_{i})}
-    \end{equation*}
+    The approximation to $f(\ell, t)$ is constructed as a radial basis expansion.
+    \begin{align*}
+      x &= (\ell, t)\\
+      \hat{f}(x) &= \sum_{i}{w_{i} \phi(||x - x_{i}||/\rho_{i})}
+    \end{align*}
   \end{block}
 
   \begin{block}{Goodness of fit}
@@ -314,7 +314,86 @@
 \subsection{Bayesian Inference}
 
 \begin{frame}{Likelihood}
+  Multivariate normal distribution is used to specify the likelihood.
+
+  \begin{align*}
+    y_{1}, \cdots, y_{n} | \theta\{\lambda\}  &\sim \mathcal{N} \left( \begin{pmatrix}
+        \hat{f}_{\theta}(x_{1})\\ 
+        \vdots\\ 
+        \hat{f}_{\theta}(x_{n})
+      \end{pmatrix},  \begin{bmatrix}
+        C(x_{1}, x_{1}) & \cdots & C(x_{1}, x_{n})\\ 
+        \vdots & \ddots  & \vdots \\ 
+        C(x_{n}, x_{1}) & \cdots & C(x_{n}, x_{n}) 
+      \end{bmatrix}\right) \\\\
+    C(x, y) &= s^{2} exp(\frac{||x-y||^2}{2u^2})
+  \end{align*}
+  
 \end{frame}
+
+\section{Experiments}
+\subsection{Synthetic Data}
+
+\begin{frame}
+  Synthetic phase space density data is generated using a discretized
+  solver and assumed values of unknown parameters.
+\end{frame}
+
+\begin{frame}
+  \begin{figure}[h]
+  \includegraphics[width=\textwidth]{kp_profile.png}
+   \caption{Kp Index}
+  \label{fig:Kp}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+  \begin{figure}[h]
+  \includegraphics[width=\textwidth]{initial_psd.png}
+  \caption{Initial Condition $f(\ell, 0)$}
+  \label{fig:initialPSD}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Generated profiles $f(\ell, t)$}
+  \begin{figure}[h]
+  \includegraphics[width=\textwidth]{psdl_ex1.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Generated profiles $f(\ell, t)$}}
+  \begin{figure}[h]
+  \includegraphics[width=\textwidth]{psdt_ex1.png}
+\end{figure}
+\end{frame}
+
+
+\subsection{Preliminary Results}
+
+\begin{frame}
+  \begin{figure}[h]
+  \includegraphics[width=\textwidth]{samples1_ex1.png}
+  %\caption{Results Experiment 1}
+  \label{fig:Samples1Ex1}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[h]
+  \includegraphics[width=\textwidth]{samples2_ex1.png}
+   %\caption{Results Experiment 1}
+  \label{fig:Samples2Ex1}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+  \begin{figure}[h]
+  \includegraphics[width=\textwidth]{hist_ex1.png}
+   %\caption{Results Experiment 1}
+  \label{fig:HistEx1}
+\end{figure}
+\end{frame}
+
 
 
 % Placing a * after \section means it will not show in the
