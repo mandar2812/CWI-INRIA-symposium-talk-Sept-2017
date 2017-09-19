@@ -253,17 +253,18 @@
 \begin{frame}{Challenges}
   \begin{itemize}
   \item<1->{
-      Data Sparsity.
+      Data sparsity \& irregularity.
     }
-  \item<2->{Non-Identifiable and Ill-Posed}
-  \item<3->{Combine sparse data with physical model}
+  \item<2->{Non-identifiable and Ill-posed}
+  \item<3->{Combine sparse data with reduced physics}
   \end{itemize}
 \end{frame}
 
 
 \section{Methodology}
 
-\begin{frame}{Broad Strokes}
+\subsection{Scheme}
+\begin{frame}
   \begin{itemize}
   \item<1->{
       Parameterize $\kappa(\ell, t), \lambda(\ell, t)$
@@ -403,11 +404,10 @@
 \begin{frame}{Summary}
   \begin{itemize}
   \item
-    The \alert{first main message} of your talk in one or two lines.
+    \alert{Uncertainty} creeps into even deterministic physical systems.
   \item
-    The \alert{second main message} of your talk in one or two lines.
-  \item
-    Perhaps a \alert{third message}, but not more than that.
+    Need to intelligently combine \alert{Bayesian statistics} with
+    existing phyiscal models.
   \end{itemize}
   
   \begin{itemize}
@@ -415,9 +415,8 @@
     Outlook
     \begin{itemize}
     \item
-      Something you haven't solved.
-    \item
-      Something else you haven't solved.
+      Decrease vagueness of posterior distribution by incorporating
+      boundary/initial conditions.
     \end{itemize}
   \end{itemize}
 \end{frame}
